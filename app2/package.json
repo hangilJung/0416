@@ -10,7 +10,6 @@
   "bin": {
     "0416": "www.js"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "node ./bin/www.js",
     "test": "echo \"Error: no test specified\" && exit 1"
