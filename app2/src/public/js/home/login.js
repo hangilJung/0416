@@ -1,23 +1,24 @@
 "use strict"
 
-const id = document.querySelector("#id"),
-pw = document.querySelector("#pw"),
-loginBtn = document.querySelector("button");
+const id = document.querySelector("#id");
+const pw = document.querySelector("#pw");
+const loginBtn = document.querySelector("button");
 
 loginBtn.addEventListener("click", login);
 
+
 function login() {
-    const req = {
-        id: id.value,
-        pw: pw.value
+
+    const req = {  // 변수명이 위에 const id = document.querySelector("#id"); 와 같아 오류로 id가 안나온듯함.
+        user_id: id.value,
+        user_pw: pw.value
     };
 
     fetch("/login", {
         method: "POST",
-        header: {
+        headers: {
             "Content-Type": "application/json" //이러한 형태로 명시적으로 json이라고 알려주는거
         },
         body: JSON.stringify(req)
     });
-
 }
