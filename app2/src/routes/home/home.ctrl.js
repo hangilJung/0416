@@ -1,9 +1,5 @@
 "use strict";
 
-const users = {
-    id: ["test1", "test2", "test3"],
-    password: ["1234", "1234", "1234",]
-}
 const output ={
     home: (req, res) => {
         res.render("home/index");
@@ -12,6 +8,11 @@ const output ={
         res.render("home/login");
     }
 };
+
+const users = {
+    id: ["test1", "test2", "test3"],
+    password: ["1234", "1234", "1234",]
+}
 
 const process = {
     login: (req, res) => {
@@ -26,7 +27,7 @@ const process = {
                 });
             }
         }
-        
+
         return res.json({
             success: false,
             msg: "로그인에 실패하셨습니다."
