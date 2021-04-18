@@ -20,5 +20,7 @@ function login() {
             "Content-Type": "application/json" //이러한 형태로 명시적으로 json이라고 알려주는거
         },
         body: JSON.stringify(req)
-    });
+    })
+    .then((res) => res.json())
+    .then((res) => console.log(res))
 }
