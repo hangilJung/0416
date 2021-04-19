@@ -25,7 +25,6 @@ const process = {
     register: (req, res) => {
         const user = new User(req.body); //유저라는 인스턴스를 만듬(user)
         const response = user.register();
-        console.log("response값" ,response);
         return res.json(response);
     }
 };

@@ -15,45 +15,41 @@ class UserStorage {
         console.log(userInfo);
         return userInfo;        
     }
-    //static이 있어야 클래스 자체에서 변수에 접근 가능
-    // #을 붙이면 외부에서 불러올 수 없다
-    // static #users = {
-    //     id: ["test1", "test2", "test3"],
-    //     password: ["1234", "1234", "1234",],
-    //     name: ["우리밋", "나개발", "김팀장"]
-    // }
 
-    
-
-    static getUsers(...fields) {
-        // const users = this.#users;
-        const newUsers =  fields.reduce((newUsers, field) => {
-           if(users.hasOwnProperty(field)) {
-               newUsers[field] = users[field];
-           }
-           return newUsers;
-        }, {})
-        console.log(newUsers);
+    static #getUsers(data, isAll, fields) {
+        const users = JSON.parse(data);
+        if(isAll) return users;
+        const newUsers = fields.reduce((newUsers, field) => {
+            if(users.hasOwnProperty(field)) {
+                newUsers[field] = users[field];
+            }
+            return newUsers;
+        }, {});
         return newUsers;
+    }
+
+    static getUsers(isAll,...fields) {
+        return fs
+        .readFile("./src/databases/users.json")
+        .then((data) => {
+            return this.#getUsers(data, isAll, fields);
+        }) 
+        .catch(console.error);  
     }
 
     static getUserInfo(id) {
         return fs
-        .readFile("./src/databases/users.json")
-        .then((data) => {
-            return this.#getUserInfo(data, id);
-        }) //해당 로직이 성공시 실행
-        .catch(console.error); // 해당 로직이 실패시 실행                   
-    }
+            .readFile("./src/databases/users.json")
+            .then((data) => {
+                return this.#getUserInfo(data, id);
+            }) 
+            .catch(console.error);                 
+    }    
 
-    
-
-    static save(userInfo) {
-        // const users = this.#users;
-        users.id.push(userInfo.user_id);
-        users.name.push(userInfo.name);
-        users.password.push(userInfo.user_pw);
-        return { success: true };
+    static async save(userInfo) {
+        const users = await this.getUsers(true);
+        console.log(users);
+        fs.writeFile("./src/databases/users.json", JSON.stringify(users));        
     }
 }
 
