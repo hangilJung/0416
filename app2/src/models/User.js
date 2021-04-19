@@ -9,17 +9,21 @@ class User {
 
     login(){
         const body = this.body;
-        const { id, password } = UserStorage.getUserInfo(body.id);
-        
+        const {id, password } = UserStorage.getUserInfo(body.user_id);    
+        console.log(id);
+        console.log(password);    
 
-        if(id){        
-            if(id === body.id && password === body.password) {
+        if(id) {
+            if(id === body.user_id && password === body.user_pw) {
+                console.log("로그인 성공 ");
                 return { success: true};
+                
             }
-            return { success: false, msg : "비밀번호가 틀렸습니다."}
+            return { success: false, msg : "비밀번호가 틀렸습니다."};
         }
-        return { success: false, msg: "존재하지 않는 아이디입니다."}
-    }
+        return { success: false, msg : "존재하지 않는 아이디입니다."};    
+        
+     }
 }
 
 module.exports = User;
