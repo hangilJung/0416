@@ -10,15 +10,22 @@ registerBtn.addEventListener("click", register);
 
 
 function register() {
-
+    if (!id.value) {
+        id.focus();
+        return alert("아이디를 입력해주십시오");
+    }    
+    if (pw.value !== confirmPassword.value) {
+        pw.value = "";
+        confirmPassword.value = "";
+        pw.focus();        
+        return alert("비밀번호가 일치하지 않습니다.");
+    }
+    
     const req = {  // 변수명이 위에 const id = document.querySelector("#id"); 와 같아 오류로 id가 안나온듯함.
         user_id: id.value,
         name: name.value,
-        user_pw: pw.value,
-        confirmPassword: confirmPassword.value
-
+        user_pw: pw.value,        
     };
-
 
     fetch("/register", {
         method: "POST",

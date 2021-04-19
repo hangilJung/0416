@@ -7,14 +7,14 @@ class User {
         this.body = body;
     }
 
-    login(){
-        const body = this.body;
-        const {id, password } = UserStorage.getUserInfo(body.user_id);    
+    login() {
+        const client = this.body;
+        const {id, password } = UserStorage.getUserInfo(client.user_id);    
         console.log(id);
         console.log(password);    
 
         if(id) {
-            if(id === body.user_id && password === body.user_pw) {
+            if(id === client.user_id && password === client.user_pw) {
                 console.log("로그인 성공 ");
                 return { success: true};
                 
@@ -23,6 +23,12 @@ class User {
         }
         return { success: false, msg : "존재하지 않는 아이디입니다."};    
         
+     }
+
+     register() {
+        const client = this.body;
+         const response = UserStorage.save(client);
+         return response;
      }
 }
 
