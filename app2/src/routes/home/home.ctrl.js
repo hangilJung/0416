@@ -15,9 +15,9 @@ const output ={
 const process = {
     login: (req, res) => {
         const user = new User(req.body); //유저라는 인스턴스를 만듬(user)
-        console.log(user);
         const response = user.login();
         console.log("response값" ,response);
+        return res.json(response);
     }
 };
 
