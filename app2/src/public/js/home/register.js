@@ -1,7 +1,7 @@
 "use strict"
 
 const id = document.querySelector("#id");
-const name = document.querySelector("#name");
+const nm = document.querySelector("#name");
 const pw = document.querySelector("#pw");
 const confirmPassword = document.querySelector("#confirm-pw");
 const registerBtn = document.querySelector("#button");
@@ -10,20 +10,12 @@ registerBtn.addEventListener("click", register);
 
 
 function register() {
-    if (!id.value) {
-        id.focus();
-        return alert("아이디를 입력해주십시오");
-    }    
-    if (pw.value !== confirmPassword.value) {
-        pw.value = "";
-        confirmPassword.value = "";
-        pw.focus();        
-        return alert("비밀번호가 일치하지 않습니다.");
-    }
-    
+    if(!id.value) return alert("아이디를 입력해주십시오.");
+    if(pw.value !== confirmPassword.value) return alert("비밀번호가 일치하지 않습니다.");
+
     const req = {  // 변수명이 위에 const id = document.querySelector("#id"); 와 같아 오류로 id가 안나온듯함.
         user_id: id.value,
-        name: name.value,
+        name: nm.value,
         user_pw: pw.value,        
     };
 

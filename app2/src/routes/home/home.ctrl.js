@@ -22,9 +22,9 @@ const process = {
         console.log("response값" ,response);
         return res.json(response);
     },
-    register: (req, res) => {
+    register: async (req, res) => {
         const user = new User(req.body); //유저라는 인스턴스를 만듬(user)
-        const response = user.register();
+        const response = await user.register();
         return res.json(response);
     }
 };

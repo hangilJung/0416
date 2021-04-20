@@ -22,10 +22,18 @@ class User {
         
         }
 
-    register() {
+    async register() {
         const client = this.body;
-         const response = UserStorage.save(client);
-         return response;
+        try{
+            console.log("레지스터쪽 id은?",client.user_id);
+            console.log("레지스터쪽 name은?",client.name);
+            console.log("레지스터쪽 pw는?",client.user_pw);
+            const response = await UserStorage.save(client);
+            return response;
+        } catch (err) {
+           const a = { success: false, msg: err };
+           return a;
+        }
     }
 }
 

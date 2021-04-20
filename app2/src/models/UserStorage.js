@@ -12,7 +12,6 @@ class UserStorage {
             newUser[info] = users[info][idx];                
             return newUser;
         }, {});
-        console.log(userInfo);
         return userInfo;        
     }
 
@@ -28,6 +27,8 @@ class UserStorage {
         return newUsers;
     }
 
+
+    //users.json에서 데이터를 가져오는거
     static getUsers(isAll,...fields) {
         return fs
         .readFile("./src/databases/users.json")
@@ -47,9 +48,17 @@ class UserStorage {
     }    
 
     static async save(userInfo) {
+        console.log("userInfo쪽",userInfo);
         const users = await this.getUsers(true);
-        console.log(users);
-        fs.writeFile("./src/databases/users.json", JSON.stringify(users));        
+        console.log("users쪽",users);
+        if(users.id.includes(userInfo.id)) {
+            throw ("이미 존재하는 아이디입니다.");
+        }
+        users.id.push(userInfo.user_id);
+        users.name.push(userInfo.name);
+        users.password.push(userInfo.user_pw);
+        fs.writeFile("./src/databases/users.json", JSON.stringify(users));    
+        return { success: true };     
     }
 }
 
